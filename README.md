@@ -42,11 +42,13 @@ Using the transformation rules defined in the matched molecular pair database, t
 
 # Setup (for all the tools)
 ## docker
+```
 WORKDIR /opt
 RUN wget https://github.com/rdkit/mmpdb/archive/refs/tags/v3.1.tar.gz
 RUN tar -xvf v3.1.tar.gz
 WORKDIR /opt/mmpdb-3.1
 RUN pip install -e .
+```
 
 ## requirements
 rdkit
