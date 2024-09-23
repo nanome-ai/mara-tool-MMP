@@ -39,8 +39,10 @@ def run(input_csv, name_column="none", property_columns=[]):
     for prop in property_columns:
         if prop.lower() not in column_name_map:
             print(f"Warning! Skipping property {prop} as it is not found in the input CSV file")
-        elif not pd.api.types.is_numeric_dtype(df[column_name_map[prop.lower()]]):
-            print(f"Warning! Skipping property {prop} as it is not numeric")
+        elif not pd.api.types.is_float_dtype(df[column_name_map[prop.lower()]]):
+            print(f"Warning! Skipping property {prop} as it is not float type")
+        elif df[column_name_map[prop.lower()]].isnull().sum() > 0:
+            print(f"Warning! Skipping property {prop} as it contains missing values")
         else:
             properties[prop] = df[column_name_map[prop.lower()]]
 
@@ -55,4 +57,5 @@ def run(input_csv, name_column="none", property_columns=[]):
     print(f"Database created as data.mmpdb")
 
 if __name__ == "__main__":
-    run("../EGFR_unique.csv", name_column="MolRegNo", property_columns=["cLogP", "total surface area", "pValue"])
+    # run("../EGFR_unique.csv", name_column="MolRegNo", property_columns=["cLogP", "total surface area", "pValue"])
+    run("../EGFR_unique.csv", name_column="none", property_columns=[])
